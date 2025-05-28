@@ -13,7 +13,7 @@ public class CalculatorController {
     }
     @GetMapping
     public String welcome(){
-        return "Добро пожаловать в калькулятор";
+        return CalculatorConstants.welcomeMessage;
     }
     @GetMapping(path = "/plus")
     public String plus(@RequestParam("num1") int number1, @RequestParam("num2") int number2){
@@ -36,12 +36,12 @@ public class CalculatorController {
             int result = calculatorService.divide(number1, number2);
             return number1 + " / " + number2 + " = " + result;
         } catch (IllegalArgumentException e) {
-            return e.getMessage();
+            return CalculatorConstants.divideError;
         }
     }
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public String handleMissingParams(MissingServletRequestParameterException ex) {
-        return "Ошибка! Один из параметров не указан. Попробуйте ввести " + "/(название действия)?num1=5&num2=3";
+        return CalculatorConstants.missingParams;
     }
 }
 
